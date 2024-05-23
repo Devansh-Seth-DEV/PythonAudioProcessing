@@ -97,7 +97,7 @@ Visualizing audio data is important for analyzing and understanding audio signal
 <br><br>
 
 ### Here’s an example of how to plot an audio signal in the time domain
-Importing the wave library for reading WAV file, matplotlib visualizing the audio signals and numpy that we will use to contain audio frames
+Importing the wave library for reading WAV file, matplotlib for visualizing the audio signals and numpy that we will use for storing audio frames
 ```python
 import wave
 import matplotlib.pyplot as plt

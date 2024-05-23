@@ -128,7 +128,7 @@ signalsArray  = np.frombuffer(frames, dtype=np.int16);                 # creatin
 times         = np.linespace(0, audio_ts, num=nframes*sampleWidth);    # getting the time invterval in X-axis of audio time
 ```
 
-At last we'll visualize our audio signals using matplotlib
+Now we can visualize the audio signals using matplotlib
 ```python
 # VISUALIZATION OF AUDIO
 plt.figure(figsize=figsize);    # setting the dimention of graph
@@ -144,4 +144,65 @@ plt.show();                     # Displaying the graph
 # Audio Recording And Reproduction
 ![](https://www.bandicam.com/v/audio-recorder/bandicam-audio-recording-noise.jpg)
 <br>
-A voice recorder records a sound or a voice of a person and converts it into an audio file. The file can be stored in different audio formats like MP3 format, Waveform Audio File (WAV), Advanced Audio Coding (AAC), Audio Interchange File Format (AIFF), etc. and later it can be transferred to other devices. Any device that is capable of recording a sound or a voice is said to be a voice recorder by default. In python PyAudio provides Python bindings for PortAudio v19, the cross-platform audio I/O library. With PyAudio, you can easily use Python to play and record audio.
+A voice recorder records a sound or a voice of a person and converts it into an audio file. The file can be stored in different audio formats like MP3 format, Waveform Audio File (WAV), Advanced Audio Coding (AAC), Audio Interchange File Format (AIFF), etc. and later it can be transferred to other devices. Any device that is capable of recording a sound or a voice is said to be a voice recorder by default.<br>
+In python PyAudio provides Python bindings for PortAudio, the cross-platform audio I/O library. With PyAudio, you can easily use Python to play and record audio.
+<br><br>
+
+### Here’s an example of how to record sound using PyAudio
+Import pyaudio for recording the audio and wave for saving the audio in WAV format
+```python
+import pyaudio
+import wave
+```
+
+Next we'll set some constants which we'll use for recording the audio and a constant for file path where the output file is going to be stored
+```python
+MONO_CHANNEL        = 1;
+STEREO_CHANNEL      = 2;
+FRAMES_PER_BUFFER   = 3200;
+FORMAT_T            = pyaudio.paInt16;
+CHANNELS            = MONO_CHANNEL;
+RATE                = 16000;
+
+OUPUT_FILE          = "./assets/output.wav";
+```
+
+Now initialize the PyAudio for streaming the audio
+```python
+p         = pyaudio.PyAudio();
+stream    = p.open(
+  format             = FORMAT_T,
+  channels           = CHANNELS,
+  rate               = RATE,                  # framerate
+  input              = True,                  # Speaker/Microphone .. input state
+  frames_per_buffer  = FRAMES_PER_BUFFER
+);
+```
+
+Start recording using **stream object**
+```python
+rec_ts  = 5    # for recording the audio for 5 seconds
+frames  = [];
+
+# (framerate/frame_per_buffer)  -> audio time wrt framerate
+# audio time * rec_ts           -> loops rec_ts times the audio time
+for i in range(0, int((framerate/frame_per_buffer)*rec_ts)):
+  chunks  = stream.read(frame_per_buffer);    # frames_per_buffer bytes read from input stream
+  frames.append(chunks);
+
+stream.stop_stream();
+stream.close();
+p.terminate();
+```
+
+Now as the recorded audio data is now stored in **frames list** we can now save it as WAV file
+```python
+fwav_obj  = wave.open(OUTPUT_FILE, "wb");
+
+fwav_obj.setnchannels(CHANNELS);
+fwav_obj.setsamplewidth(p.get_sample_size(FORMAT_T));    # Setting up the bytes per frame is taking
+fwav_obj.setframerate(RATE);
+fwav_obj.writeframes(b"".join(frames));                  # Writing the frames in binary
+
+fwav_obj.close();
+```

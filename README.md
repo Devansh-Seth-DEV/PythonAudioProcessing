@@ -14,7 +14,7 @@ Python is a powerful language for audio processing due to its simplicity and eas
 The first step in audio processing is reading and writing audio files. In Python, we can read and write audio files in various formats, including WAV, FLAC, and MP3.
 <br><br>
 ### Here’s an example of how to read an audio file using the python inbuilt <wave> library<br>
-> NOTE: wave library only support read and write operations on WAV files
+> NOTE: wave library only support WAV files
 
 Importing the wave library
 ```python

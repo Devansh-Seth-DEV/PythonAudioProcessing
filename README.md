@@ -26,7 +26,7 @@ After importing the library we need to open the audio file for reading
 AUDIO_FILE  = "./assets/sample-9s.wav";
 
 # wave file object
-fwav_obj  = wave.open(AUDIO_FILE, "rb"); # this will read the wav file in binary mode
+fwav_obj    = wave.open(AUDIO_FILE, "rb"); # this will read the wav file in binary mode
 ```
 
 Now we can start reading the properties of the file
@@ -72,7 +72,7 @@ import wave
 After importing the library we need to open the audio file for writing
 ```python
 AUDIO_FILE  = "./assets/sample-9s_new.wav";
-fwav_obj  = wave.open(AUDIO_FILE, "wb");  # this will open the new ouput audio file for writing in binary mode
+fwav_obj    = wave.open(AUDIO_FILE, "wb");  # this will open the new ouput audio file for writing in binary mode
 ```
 
 After the file object is created we need to setup some basic properties about the audio
@@ -87,6 +87,41 @@ Now we can write the frames to the file
 fwav_obj.writeframes(frames);      # writing the frames into new audio file which was read above | Frames should be in bytes
 
 fwav_obj.close();  # Closing the audio file (FOR A GOOD PRACTICE)
+```
+<br>
+
+# Loading and Playing MP3 files
+![](https://upload.wikimedia.org/wikipedia/commons/b/b2/MP3_Logo.png)
+<br>
+Pyaudio allows us to play and record sounds with Python. To play MP3, however, we first need to convert the MP3 file to WAV format with ffmpeg. To use ffmpeg in Python, we use an interface tool called Pydub, which directly calls our ffmpeg executable and integrates with Pyaudio.
+<br><br>
+
+### Here’s an example of how to play mp3 audio files using pydub
+Importing AudioSegment from pydub to load mp3 and play function from pydub.playback to play the audio
+```python
+from pydub import AudioSegment
+from pydub.playback import play
+```
+
+Loading mp3 file
+```python
+AUDIO_FILE    = "./assets/vibe-on-173188.mp3"
+audMP3_obj    = AudioSegment(AUDIO_FILE);
+```
+
+Playing mp3 file
+```python
+try:
+  print("Playing ...");
+  play(audMP3_obj);
+except KeyboardInterrupt:
+  print("Stopped !");
+```
+
+Exporting the audio in another format
+```python
+OUTPUT_FILE  = "./assets/vibe-on_export.wav";
+audMP3_obj.export(OUTPUT_FILE, format = "wav");
 ```
 <br>
 

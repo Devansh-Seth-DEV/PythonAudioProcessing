@@ -26,8 +26,8 @@ Audio signal parameters
 
 def main() -> None:
     SAMPLE_WAV_FILE = "./assets/sample-9s";
-    AUDIO_FMT       = ".wav";
-    wavf_obj = wave.open(SAMPLE_WAV_FILE+AUDIO_FMT, "rb");
+    AUDIO_FMT:      = ".wav";
+    wavf_obj        = wave.open(SAMPLE_WAV_FILE+AUDIO_FMT, "rb");
 
     print("Number of channels:", wavf_obj.getnchannels());
     print("Sample width:", wavf_obj.getsampwidth());
@@ -55,5 +55,5 @@ def main() -> None:
     wavf_new.close();
     wavf_obj.close();
 
-if __name__ == "__main__":
+if ("__main__" == __name__):
     main();

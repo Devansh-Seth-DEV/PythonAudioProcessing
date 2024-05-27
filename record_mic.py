@@ -92,5 +92,5 @@ def main() -> None:
 
     CreateWav(FILE_PATH+FILE_NAME+FILE_FMT, p, CHANNELS, FORMAT_T, RATE, frames);
 
-if __name__ == "__main__":
+if ("__main__" == __name__):
     main();

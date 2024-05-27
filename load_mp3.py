@@ -39,5 +39,5 @@ def main() -> None:
     PlayAudio(audio_wav, "Vibe ON EXPORTED");
 
 
-if __name__ == "__main__":
+if ("__main__" == __name__):
     main();

@@ -37,9 +37,9 @@ def main() -> None:
     audio_tm = round(nsamples/sample_framerate, 2);
 
     signals_array    = np.frombuffer(signal_wave, dtype=np.int16);
-    times           = np.linspace(0, audio_tm, num=nsamples*sample_width);
+    times            = np.linspace(0, audio_tm, num=nsamples*sample_width);
 
     PlotAudioSignals((10, 5), times, signals_array, "Audio Signals", "Time (sec)", "Signal Wave", (0, audio_tm));
 
-if __name__ == "__main__":
+if ("__main__" == __name__):
     main();
